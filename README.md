@@ -71,3 +71,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## STUDENT ID
 
  Student ID: I6362856
+
+
+
+## UML Diagrams
+
+The UML diagrams for this project are provided in the [uml_models](uml_models)
+
+- 'AlertGeneratorClass.png': Class diagram for Alert Generator
+- 'AlertGeneratorState.png': State diagram for Alert Generator
+- 'AlertGeneratorSequence.png': Sequence diagram for Alert Generator
+- 'DataAccessLayer.png': Class diagram for Data Access Layer
+- 'DataStorageSystem.png' Class diagram for Data Storage System
+- 'PatientIdentification.png' Class diagram for Patient Identification
+
