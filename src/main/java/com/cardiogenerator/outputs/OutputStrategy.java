@@ -1,4 +1,4 @@
-package com.cardio_generator.outputs;
+package com.cardiogenerator.outputs;
 
 /**
  * A strategy interface for outputting patient data

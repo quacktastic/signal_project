@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+actor User
+participant "DataStorage" as DS
+participant "AlertGenerator" as AG
+participant "Alert" as A
+autonumber
+
+User -> AG: Generate alert
+AG -> DS: Fetch historical data
+DS --> AG: Return historical data
+AG -> AG: Check data against criteria
+alt Data meets criteria
+   AG -> A: Generate alert
+   A -> User: Notify alert
+
+else
+   AG -> AG: do nothing
+end
+
+@enduml

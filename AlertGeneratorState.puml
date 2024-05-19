@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+left to right direction
+
+[*] --> Generated : new Alert()
+Generated --> Sent : enqueueAlert()
+Sent --> Acknowledged : notifyMedicalStaff()
+Acknowledged --> Resolved : generate()
+Resolved --> [*]
+@enduml
+
+
+@enduml

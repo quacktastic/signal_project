@@ -1,6 +1,6 @@
-package com.cardio_generator.generators;
+package com.cardiogenerator.generators;
 
-import com.cardio_generator.outputs.OutputStrategy;
+import com.cardiogenerator.outputs.OutputStrategy;
 
 /**
  * An interface for generating patient-related data

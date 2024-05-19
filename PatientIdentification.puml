@@ -1,0 +1,64 @@
+@startuml
+'https://plantuml.com/class-diagram
+allowmixing
+
+package "com.cardiogenerator.generators"{
+class DataStorage {
+- dbConnection: Connection
++ add(): void
++ update()
++ delete()
++ get()
+}
+
+class User {
+
+- userId: int
+- username: String
+- password: String
+- isActive: boolean
++ User()
+
+}
+
+class UserPermission {
+
+- userId: int
+- patientId: String
+- isReadOnly: boolean
+- validFrom: date
+- expiredAt: date
+
+}
+
+
+class PatientIdentifier {
+- dataStorage: DataStorage
+- authenticatedUser: User
++ add(): void
++ update()
++ delete()
++ get(patientId): PatientRecord
++ matchPatientId(patientId): boolean
+}
+
+
+class PatientRecord {
+
+- patientId: String
+- name: String
+- dateOfBirth: LocalDate
+- medicalHistory: String
++ PatientRecord()
+ }
+}
+PatientIdentifier --> UserPermission: uses
+PatientIdentifier --> User: uses
+PatientIdentifier --> PatientRecord: uses
+PatientIdentifier --> DataStorage: calls
+DataStorage --> PatientRecord: uses
+UserPermission --> User: uses
+PatientIdentifier --> PatientRecord: uses
+
+
+@enduml

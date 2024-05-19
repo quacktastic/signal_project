@@ -1,7 +1,7 @@
-package com.cardio_generator.generators;
+package com.cardiogenerator.generators;
 
 import java.util.Random;
-import com.cardio_generator.outputs.OutputStrategy;
+import com.cardiogenerator.outputs.OutputStrategy;
 
 /**
  * This generates alert data for patients based on their current alert state and random factors

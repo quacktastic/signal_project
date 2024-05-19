@@ -1,0 +1,95 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+allowmixing
+package "com.cardiogenerator.generators" {
+left to right direction
+
+abstract class DataListener {
+
++ listen(): abstract void
+
+}
+
+class DataParser {
+
++ parse(): PatientData
+
+}
+
+class DataFusion {
+
+ - components: List<Object>
+ + DataFusion
+ + connect(): void
+ + fuse(): Object
+ + analyze(): Object
+
+}
+
+class DataSourceAdapter {
+
+- strategy: OutputStrategy
++ DataSourceAdapter()
++ sendData(): void
+'note: sendData() uses OutputStrategy interface methods!
+
+}
+
+class TCPDataListener extends DataListener{
+
+- ipAddress: String
+- port: int
++ listen(): void
++ TCPDataListener()
+
+}
+
+class WebSocketDataListener extends DataListener {
+
+ - serverUrl: String
+ + listen(): void
+ + WebSocketDataListener()
+
+}
+
+
+class FileDataListener extends DataListener {
+
+  - filepath: String
+  + listen(): void
+  + FileDataListener()
+
+}
+
+class ConsoleListener extends DataListener {
+
++ listen(): void
+
+}
+
+interface OutputStrategy {
+
+output(): void
+
+}
+
+class DataSourceAdapter implements OutputStrategy {
+
+
+
+}
+
+
+
+}
+
+
+DataListener --> DataParser: uses
+DataParser --> DataSourceAdapter: calls
+DataParser --> DataFusion: calls
+DataFusion --> DataSourceAdapter: calls
+
+
+
+@enduml
