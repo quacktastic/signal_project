@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+top to bottom direction
+
+[*] --> MetricsRetrieved: retrieveMetrics()
+MetricsRetrieved --> ThresholdsRetrieved: retrieveThresholds()
+ThresholdsRetrieved --> IsMetricsExceed: checkMetricsAgainstThresholds()
+IsMetricsExceed --> AlertSent: True \n enqueueAlert()
+IsMetricsExceed --> [*]: False
+AlertSent --> Notified: notifyMedicalStaff()
+Notified --> [*]
+@enduml
+
+

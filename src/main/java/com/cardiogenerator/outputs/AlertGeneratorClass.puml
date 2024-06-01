@@ -1,0 +1,83 @@
+@startuml
+'https://plantuml.com/class-diagram
+allowmixing
+
+left to right direction
+package "com.cardiogenerator.generators"{
+
+interface PatientDataGenerator{
+ + generate() : void
+}
+
+
+class AlertGenerator implements PatientDataGenerator {
+  randomGenerator: Random
+ - alertStates : boolean[]
+ - retrieveMetrics()
+ - retrieveThresholds()
+ - checkMetricsAgainstThresholds()
+ + AlertGenerator()
+ + generate() : void
+}
+
+class Alert {
+ - patientId : String
+ - condition : String
+ - timestamp : long
+ + Alert()
+ + getPatientId() : int
+ + getCondition() : String
+ + getTimestamp() : long
+}
+
+class AlertManager {
+ - alertQueue: BlockingQueue<Alert>
+ + enqueueAlert(Alert): void
+ + notifyMedicalStaff(Alert): void
+}
+
+class PatientThresholds {
+ - patientId: String
+ - thresholds: List<MetricThresholds>
+ - connectedThresholds: List<MetricThresholdsConnected>
+ + setThresholds(): void
+ + getThreshold(): double
+ + isAboveThreshold(): boolean
+}
+
+class MetricThresholds {
+
+ - name: String
+ - lowValue: double
+ - highValue: double
+ + getName: String
+ + getLowValue: double
+ + getHighValue: double
+
+}
+
+class MetricThresholdsConnected {
+'fusion
+- values List<MetricThresholds>
++ getValues: List<MetricThresholds>
+
+  }
+
+
+}
+
+
+AlertGenerator --> AlertManager
+AlertGenerator --> PatientThresholds
+AlertGenerator --> Alert
+AlertGenerator --> MetricThresholds
+AlertGenerator --> MetricThresholdsConnected
+AlertManager --> Alert
+MetricThresholdsConnected --> MetricThresholds
+PatientThresholds --> MetricThresholds
+PatientThresholds --> MetricThresholdsConnected
+
+
+
+
+@enduml

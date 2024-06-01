@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor "User" as U
+participant " DataStorage " as DS
+participant " AlertGenerator " as AG
+participant " AlertManager " as AM
+
+U -> DS: Measure and send metric
+AG -> DS: Fetch metrics
+DS --> AG: Return metrics
+AG -> DS: Fetch thresholds
+DS --> AG: Return thresholds
+AG -> AG: Check metrics against thresholds
+
+alt If metric exceeds thresholds
+    AG --> AM: Generate alert
+    AM --> U : Notify alert
+end
+@enduml
