@@ -74,14 +74,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 
-## UML Diagrams
+## UML Models
 
-The UML diagrams for this project are provided in the [uml_models](uml_models)
+The UML diagrams and their descriptions can be found in the [uml_models](uml_models) directory.
 
-- 'AlertGeneratorClass.png': Class diagram for Alert Generator
-- 'AlertGeneratorState.png': State diagram for Alert Generator
-- 'AlertGeneratorSequence.png': Sequence diagram for Alert Generator
-- 'DataAccessLayer.png': Class diagram for Data Access Layer
-- 'DataStorageSystem.png' Class diagram for Data Storage System
-- 'PatientIdentification.png' Class diagram for Patient Identification
+- [Alert Generation System Class Diagram](uml_models/Alert%20Generation%20System/UML%20Class%20Diagram/AlertGeneratorClassUpdated.pdf)
+- [Alert Generation System Sequence Diagram](uml_models/Alert%20Generation%20System/UML%20Sequence%20Diagram/AlertGeneratorClassUpdated.pdf)
+- [Alert Generation System State Diagram](uml_models/Alert%20Generation%20System/UML%20State%20Diagram/AlertGeneratorClassUpdated.pdf)
+- [Data Access Layer System Diagram](uml_models/Data%20Access%20Layer%20System/)
+- [Data Storage System Diagram](uml_models/Data%20Storage%20System/)
+- [Patient Identification System Diagram](uml_models/Patient%20Identification%20System/)
+
 
