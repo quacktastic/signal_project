@@ -26,14 +26,14 @@
     {
       "patientId": 1,
       "recordType": "blood saturation",
-      "measurementValue": 90.0,
-      "timestamp": 1700000004005
+      "measurementValue": 80.0,
+      "timestamp": 1700000003604
     },
     {
       "patientId": 1,
       "recordType":"blood saturation",
-      "measurementValue": 80.0,
-      "timestamp": 1700000005006
+      "measurementValue": 75.0,
+      "timestamp": 1700000004204
     },
     {
       "patientId": 2,
@@ -63,13 +63,13 @@
       "patientId": 2,
       "recordType": "blood saturation",
       "measurementValue": 93.0,
-      "timestamp": 1700000009000
+      "timestamp": 1700000008010
     },
     {
       "patientId": 2,
       "recordType": "blood saturation",
       "measurementValue": 90.0,
-      "timestamp": 1700000010000
+      "timestamp": 1700000008100
     },
     {
       "patientId": 2,
@@ -106,6 +106,25 @@
       "recordType": "blood pressure systolic",
       "measurementValue": 140.0,
       "timestamp": 1700000011000
+    },
+    {
+      "patientId": 3,
+      "recordType":"blood saturation",
+      "measurementValue": 88.0,
+      "timestamp": 1700000013002
+    },
+    {
+      "patientId": 3,
+      "recordType":"blood saturation",
+      "measurementValue": 83.0,
+      "timestamp": 1700000014003
+    },
+    {
+      "patientId": 3,
+      "recordType": "blood saturation",
+      "measurementValue": 78.0,
+      "timestamp": 1700000012000
+
     },
     {
       "patientId": 4,

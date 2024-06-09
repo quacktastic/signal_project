@@ -36,9 +36,7 @@ public class AlertGenerator {
      * Evaluates the specified patient's data to determine if any alert conditions
      * are met. If a condition is met, an alert is triggered via the
      * {@link #triggerAlert}
-     * method. This method should define the specific conditions under which an
-     * alert
-     * will be triggered.
+     *
      *
      * @param patient the patient data to evaluate for alert conditions
      */
@@ -70,6 +68,13 @@ public class AlertGenerator {
                 }
             }
 
+            if(prevRecord != null && record.getRecordType().equals("blood saturation")) {
+                String combinedAlert = hypotensiveHypoxemiaAlert(prevRecord, record);
+                if(combinedAlert != null) {
+                    triggerAlert(new Alert(patient.getPatientId(), combinedAlert, record.getTimestamp()));
+                }
+            }
+
             prevPrevRecord = prevRecord;
             prevRecord = record;
 
@@ -80,9 +85,7 @@ public class AlertGenerator {
 
     /**
      * Triggers an alert for the monitoring system. This method can be extended to
-     * notify medical staff, log the alert, or perform other actions. The method
-     * currently assumes that the alert information is fully formed when passed as
-     * an argument.
+     * notify medical staff, log the alert, or perform other actions.
      *
      * @param alert the alert object containing details about the alert condition
      */
@@ -91,9 +94,17 @@ public class AlertGenerator {
         alerts.add(alert);
     }
 
+
+    /**
+     * Retrieves the list of generated alerts
+     *
+     * @return the list of alerts
+     */
     public List<Alert> getAlerts() {
         return alerts;
     }
+
+
 
     private String bloodPressureCriticalThresholds(PatientRecord record) {
         if (record.getRecordType().equals("blood pressure diastolic")) {
@@ -202,10 +213,19 @@ public class AlertGenerator {
             boolean rapidDropBetween2and3 = timeDifference2 <= 600000 && (record2.getMeasurementValue() - record3.getMeasurementValue()) >= 5;
             boolean rapidDropBetween1and3 = timeDifference3 <= 600000 && (record1.getMeasurementValue() - record3.getMeasurementValue()) >= 5;
 
-            if (rapidDropBetween1and2 || rapidDropBetween2and3 || rapidDropBetween1and3) {
+            if (rapidDropBetween1and2) {
+                logger.info("Rapid drop alert: " + record1.getMeasurementValue() + " to " + record2.getMeasurementValue() + " within " + timeDifference1 / 60000 + " minutes ");
+                return "blood oxygen saturation level dropped by 5% or more within 10 minutes";
+            }
+            if (rapidDropBetween2and3) {
+                logger.info("Rapid drop alert: " + record2.getMeasurementValue() + " to " + record3.getMeasurementValue() + " within " + timeDifference2 / 60000 + " minutes ");
+                return "blood oxygen saturation level dropped by 5% or more within 10 minutes";
+            }
+            if (rapidDropBetween1and3) {
                 logger.info("Rapid drop alert: " + record1.getMeasurementValue() + " to " + record3.getMeasurementValue() + " within " + timeDifference3 / 60000 + " minutes ");
                 return "blood oxygen saturation level dropped by 5% or more within 10 minutes";
             }
+
         }
 
 
@@ -225,6 +245,25 @@ public class AlertGenerator {
         //    return "blood oxygen saturation level dropped by 5% or more within 10 minutes";
 
         //}
+        return null;
+    }
+
+
+    /**
+     * Checks for hypotensive hypoxemia conditions in patient records
+     *
+     *
+     * @param bloodPressureRecord the record containing blood pressure data
+     * @param saturationRecord the record containing blood saturation data
+     * @return a string representing the alert condition if both conditions are met, otherwise null
+     */
+    private String hypotensiveHypoxemiaAlert(PatientRecord bloodPressureRecord, PatientRecord saturationRecord) {
+        if (bloodPressureRecord != null && saturationRecord != null) {
+            if(bloodPressureRecord.getRecordType().equals("blood pressure systolic") && bloodPressureRecord.getMeasurementValue() < 90 &&
+                saturationRecord.getRecordType().equals("blood saturation") && saturationRecord.getMeasurementValue() < 92) {
+                return "Hypotensive Hypomexia Alert: systolic blood pressure is below 90mmHg and blood oxygen saturation falls below 92%";
+            }
+        }
         return null;
     }
 }
