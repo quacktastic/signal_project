@@ -1,10 +1,15 @@
 package com.data_management;
 
+import com.alerts.AlertGenerator;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.alerts.AlertGenerator;
 
 /**
  * Manages storage and retrieval of patient data within a healthcare monitoring
@@ -82,22 +87,67 @@ public class DataStorage {
      * 
      * @param args command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         // DataReader is not defined in this scope, should be initialized appropriately.
         // DataReader reader = new SomeDataReaderImplementation("path/to/data");
+        if(args.length < 2 || !args[0].equals("--output")) {
+            System.out.println("Invalid arguments. Usage: DataStorage --output <outputFolder> ");
+            return;
+        }
+
+
         DataStorage storage = new DataStorage();
+
+        ;
+
+            String outputFolder = args[1];
+            System.out.println("Patient data directory " + outputFolder);
+
+
+            File folder = new File(outputFolder);
+            File[] listOfFiles = folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".json"));
+
+            if(listOfFiles == null) {
+                System.out.println("No files found in the specified directory.");
+                return;
+            }
+
+            for (File file : listOfFiles) {
+                if (file.isFile()) {
+
+                    System.out.println("Patient data file " + file.getName());
+
+                    List<PatientRecord> patientRecordList = storage.deserialize(file.getPath());
+
+                    for (PatientRecord patientRecord : patientRecordList) {
+
+                        storage.addPatientData(patientRecord.getPatientId(),
+                            patientRecord.getMeasurementValue(),
+                            patientRecord.getRecordType(),
+                            patientRecord.getTimestamp());
+
+                        System.out.println("Patient data added");
+                    }
+                }
+            }
+
+
         //FileDataReader fileDataReader = new FileDataReader(".txt", );
         // Assuming the reader has been properly initialized and can read data into the
         // storage
         // reader.readData(storage);
 
-        // Example of using DataStorage to retrieve and print records for a patient
-        List<PatientRecord> records = storage.getRecords(1, 1700000000000L, 1800000000000L);
-        for (PatientRecord record : records) {
-            System.out.println("Record for Patient ID: " + record.getPatientId() +
-                    ", Type: " + record.getRecordType() +
-                    ", Data: " + record.getMeasurementValue() +
-                    ", Timestamp: " + record.getTimestamp());
+        List<Patient> allPatients = storage.getAllPatients();
+        for (Patient patient : allPatients) {
+
+            // Example of using DataStorage to retrieve and print records for a patient
+            List<PatientRecord> records = storage.getRecords(patient.getPatientId(), 1700000000000L, 1800000000000L);
+            for (PatientRecord record : records) {
+                System.out.println("Record for Patient ID: " + record.getPatientId() +
+                        ", Type: " + record.getRecordType() +
+                        ", Data: " + record.getMeasurementValue() +
+                        ", Timestamp: " + record.getTimestamp());
+            }
         }
 
         // Initialize the AlertGenerator with the storage
@@ -107,5 +157,22 @@ public class DataStorage {
         for (Patient patient : storage.getAllPatients()) {
             alertGenerator.evaluateData(patient);
         }
+    }
+
+    private void serialize(List<PatientRecord> value, String filePath) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        gson.toJson(value, writer);
+        writer.flush();
+        writer.close();
+    }
+
+    private List<PatientRecord> deserialize(String filePath) throws IOException {
+        Type listType = new TypeToken<List<PatientRecord>>(){}.getType();
+        //Type listType = TypeToken.getParameterized(List.class, PatientRecord).getType();
+
+        //Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        //return gson.fromJson(new FileReader(filePath), listType);
+        return new Gson().fromJson(new FileReader(filePath), listType);
     }
 }

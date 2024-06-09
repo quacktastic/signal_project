@@ -1,0 +1,74 @@
+[
+  {
+    "patientId": 1,
+    "recordType": "heart rate",
+    "measurementValue": 180.0,
+    "timestamp": 1700000013000
+  },
+  {
+    "patientId": 1,
+    "recordType": "blood pressure diastolic",
+    "measurementValue": 90.0,
+    "timestamp": 1700000014000
+  },
+  {
+    "patientId": 1,
+    "recordType": "blood pressure systolic",
+    "measurementValue": 120.0,
+    "timestamp": 1700000015000
+  },
+  {
+    "patientId": 2,
+    "recordType": "heart rate",
+    "measurementValue": 80.0,
+    "timestamp": 1700000016000
+  },
+  {
+    "patientId": 2,
+    "recordType": "blood pressure diastolic",
+    "measurementValue": 80.0,
+    "timestamp": 1700000017000
+  },
+  {
+    "patientId": 2,
+    "recordType": "blood pressure systolic",
+    "measurementValue": 120.0,
+    "timestamp": 1700000018000
+  },
+  {
+    "patientId": 2,
+    "recordType": "heart rate",
+    "measurementValue": 75.0,
+    "timestamp": 1700000019000
+  },
+  {
+    "patientId": 2,
+    "recordType": "blood pressure diastolic",
+    "measurementValue": 79.0,
+    "timestamp": 1700000020000
+  },
+  {
+    "patientId": 2,
+    "recordType": "blood pressure systolic",
+    "measurementValue": 119.0,
+    "timestamp": 1700000021000
+  },
+  {
+    "patientId": 3,
+    "recordType": "heart rate",
+    "measurementValue": 110.0,
+    "timestamp": 1700000022000
+  },
+  {
+    "patientId": 3,
+    "recordType": "blood pressure diastolic",
+    "measurementValue": 100.0,
+    "timestamp": 1700000023000
+  },
+  {
+    "patientId": 3,
+    "recordType": "blood pressure systolic",
+    "measurementValue": 140.0,
+    "timestamp": 1700000024000
+  }
+]

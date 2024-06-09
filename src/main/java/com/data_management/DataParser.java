@@ -9,8 +9,7 @@ public class DataParser {
      * @param dataStorage the DataStorage instace to store parsed data
      */
 
-    public void parse(String line, DataStorage dataStorage) {
-
+    public static void parse(String line, DataStorage dataStorage) {
         String[] parts = line.split(",");
         if (parts.length == 4) {
             try {

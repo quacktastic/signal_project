@@ -53,10 +53,16 @@ public class Patient {
      */
 
     // Implemented by Yalcin
+    public int getPatientId() {
+        return patientId;
+    }
+
+    // Implemented by Yalcin
     public List<PatientRecord> getRecords(long startTime, long endTime) {
         // TODO Implement and test this method
         List<PatientRecord> filteredRecords = new ArrayList<>();
         for(PatientRecord record : patientRecords) {
+
             if(record.getTimestamp() >= startTime && record.getTimestamp() <= endTime) {
                 filteredRecords.add(record);
             }

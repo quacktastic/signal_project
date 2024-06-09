@@ -2,18 +2,28 @@ package com.data_management;
 import java.io.*;
 
 import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.LogManager;
+import java.util.logging.SimpleFormatter;
 
 public class FileDataReader implements DataReader {
 
-    /**
-     * This class Reads File data with the method of DataReader interface
-     *
-     * @param dataStorage the storage where data will be stored
-     * @throws IOException
-     */
+    private static final Logger logger = Logger.getLogger(FileDataReader.class.getName());
 
     private String directoryPath;
     private DataParser dataParser;
+
+    static {
+        try  {
+            // Connecting logging.properties
+            LogManager.getLogManager().readConfiguration(FileDataReader.class.getResourceAsStream("/logging.properties"));
+          } catch (IOException e) {
+            logger.severe("Failed to load logging configuration: " + e.getMessage());
+         }
+      }
+
 
 
     /**
@@ -29,16 +39,17 @@ public class FileDataReader implements DataReader {
 
    @Override
    public void readData(DataStorage dataStorage) throws IOException {
-
         File directory = new File(directoryPath);
         if(directory.isDirectory()) {
+            logger.info("Reading directory: " + directoryPath);
             for(File file : directory.listFiles()) {
                 if(file.isFile() && file.getName().endsWith(".txt")) {
+                    logger.info("Reading file: " + file.getName());
                     parseFile(file, dataStorage);
                 }
             }
         } else {
-            System.out.println("Provided path is not a directory.");
+            logger.severe("Provided path is not a directory. " + directoryPath);
         }
     }
 
@@ -52,13 +63,19 @@ public class FileDataReader implements DataReader {
     private void parseFile(File file ,DataStorage dataStorage) throws IOException {
         try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
+            int lineNumber = 0;
             while ((line = reader.readLine()) != null) {
+                lineNumber++;
+                logger.info("Parsing line: " + lineNumber + line);
                 dataParser.parse(line, dataStorage);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("Failed to read file: " + file.getName() + e.getMessage());
+            throw e;
         }
+
+      }
 
     }
 
-}
+
