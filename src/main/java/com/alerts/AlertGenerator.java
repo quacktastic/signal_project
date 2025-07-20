@@ -261,7 +261,7 @@ public class AlertGenerator {
         if (bloodPressureRecord != null && saturationRecord != null) {
             if(bloodPressureRecord.getRecordType().equals("blood pressure systolic") && bloodPressureRecord.getMeasurementValue() < 90 &&
                 saturationRecord.getRecordType().equals("blood saturation") && saturationRecord.getMeasurementValue() < 92) {
-                return "Hypotensive Hypomexia Alert: systolic blood pressure is below 90mmHg and blood oxygen saturation falls below 92%";
+                return "Hypotensive Hypoxemia Alert: systolic blood pressure is below 90mmHg and blood oxygen saturation falls below 92%";
             }
         }
         return null;

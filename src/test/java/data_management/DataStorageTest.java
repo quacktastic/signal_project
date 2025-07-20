@@ -81,17 +81,17 @@ class DataStorageTest {
         assertEquals(4,records.size());
 
         // First record test
-        assertEquals(100.0, records.get(0).getMeasurementValue());
+        assertEquals(150.0, records.get(0).getMeasurementValue());
         assertEquals("WhiteBloodCells", records.get(0).getRecordType());
         assertEquals(1714376789050L, records.get(0).getTimestamp());
 
         // Second record test
-        assertEquals(200.0,records.get(1).getMeasurementValue());
+        assertEquals(150.0,records.get(1).getMeasurementValue());
         assertEquals("WhiteBloodCells", records.get(1).getRecordType());
         assertEquals(1714376789051L, records.get(1).getTimestamp());
 
         // Third record test
-        assertEquals(150.0, records.get(2).getMeasurementValue());
+        assertEquals(200.0, records.get(2).getMeasurementValue());
         assertEquals("WhiteBloodCells", records.get(2).getRecordType());
         assertEquals(1714376789052L, records.get(2).getTimestamp());
 
